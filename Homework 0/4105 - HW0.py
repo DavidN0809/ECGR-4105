@@ -1,202 +1,254 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[123]:
 
 
-import numpy as np 
-import pandas as pd 
-import matplotlib.pyplot as plt 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
-# In[7]:
+# In[124]:
 
 
 df = pd.read_csv('D3.csv')
-df.head() # To get first n rows from the dataset default value of n is 5 
-M=len(df) 
-M 
+df.head() # To get first n rows from the dataset default value of n is 5
+M=len(df)
+M
 
 
-# In[8]:
+# In[125]:
 
 
-X = df.values[:, 0]  # get input values from first column 
-y = df.values[:, 1]  # get output values from second column 
-m = len(y) # Number of training examples 
-print('X = ', X[: 5]) # Show only first 5 records 
-print('y = ', y[: 5]) 
-print('m = ', m) 
+X = df.values[:, 0]
+K = df.values[:, 1]
+Z = df.values[:, 2]
+Y = df.values[:, 3]
+m = len(Y)
+X_0 = X
+X_1 = K
+X_2 = Z
 
 
-# In[9]:
+m = len(Y) # Number of training examples
+print('X = ', X[: 5]) # Show only first 5 records
+print('Y = ', Y[: 5])
+print('m = ', m)
 
 
-X = df.values[:, 0]  # get input values from first column 
-y = df.values[:, 1]  # get output values from second column 
-m = len(y) # Number of training examples 
-print('X = ', X[: 97]) # Show only first 5 records 
-print('y = ', y[: 97]) 
-print('m = ', m) 
+# In[126]:
 
 
-# In[10]:
+def gradient_descent(X, Y, theta, alpha, iterations):
+    cost_history = np.zeros(iterations)
+    for i in range(iterations):
+        predictions = X.dot(theta)
+        errors = np.subtract(predictions, Y)
+        sum_delta = (alpha / m) * X.transpose().dot(errors);
+        theta = theta - sum_delta;
+        cost_history[i] = compute_cost(X, Y, theta)
+    return theta, cost_history
 
 
-plt.scatter(X,y, color='red',marker= '+') 
-plt.grid() 
-plt.rcParams["figure.figsize"] = (10,6) 
-plt.xlabel('Population of City in 10,000s') 
-plt.ylabel('Profit in $10,000s') 
-plt.title('Scatter plot of training data') 
+# In[127]:
 
 
-# In[11]:
+def compute_cost(X, Y, theta):
+    predictions = X.dot(theta)
+    errors = predictions - Y
+    sqrErrors = np.square(errors)
+    J = 1/(2*m)* np.sum(np.square(errors))
+    return J
 
 
-#Lets create a matrix with single column of ones 
-X_0 = np.ones((m, 1)) 
-X_0[:5] 
+# In[128]:
 
 
-# In[12]:
+def DisplayData(X, color):
+    plt.scatter(X,Y,color = color)
+    plt.grid()
+    plt.title('Scatter plot of training data')
+    plt.rcParams["figure.figsize"] = (10,6)
+    plt.xlabel('Population of City in 10,000s')
+    plt.ylabel('Profit in $10,000s')
 
 
-# Using reshape function convert X 1D array to 2D array of dimension 97x1 
-X_1 = X.reshape(m, 1) 
-X_1[:10] 
+# In[129]:
 
 
-# In[13]:
+# Plot x
+DisplayData(X, 'red')
+
+# Plot k
+DisplayData(K,'blue')
+
+#Plot Z
+DisplayData(Z,'green')
 
 
-# Lets use hstack() function from numpy to stack X_0 and X_1 horizontally (i.e. column 
-# This will be our final X matrix (feature matrix) 
-X = np.hstack((X_0, X_1)) 
-X[:5] 
+# In[130]:
 
 
-# In[14]:
+X0 = np.ones((m,1))
+X1 = X_0.reshape(m,1)
+X_1 = np.hstack((X0,X1))
+theta = np.zeros(2)
+iterations = 1500;
+alpha = 0.01;
+cost = compute_cost(X_1,Y,theta)
+theta, cost_history = gradient_descent(X_1,Y,theta,alpha,iterations)
+
+DisplayData(X, 'red')
+plt.plot(X,X_1.dot(theta),color = 'red' ,label ='Linear Regression of K')
+plt.title('Scatter plot of X')
 
 
-theta = np.zeros(2) 
-theta 
+# In[131]:
 
 
-# In[15]:
+#Problem 1
 
 
-def compute_cost(X, y, theta): 
-  """ 
-  Compute cost for linear regression. 
- 
-  Input Parameters 
-  ---------------- 
-  X : 2D array where each row represent the training example and each column represent 
-      m= number of training examples 
-      n= number of features (including X_0 column of ones) 
-  y : 1D array of labels/target value for each traing example. dimension(1 x m) 
- 
-  theta : 1D array of fitting parameters or weights. Dimension (1 x n) 
- 
-  Output Parameters 
-  ----------------- 
-  J : Scalar value. 
-  """ 
-  predictions = X.dot(theta) 
-  errors = np.subtract(predictions, y) 
-  sqrErrors = np.square(errors) 
-  J = 1 / (2 * m) * np.sum(sqrErrors) 
- 
-  return J 
+# In[132]:
 
 
-# In[16]:
+plt.plot(range(1, iterations + 1),cost_history, color='red')
+plt.rcParams["figure.figsize"] = (10,6)
+plt.grid()
+plt.xlabel('Number of iterations')
+plt.ylabel('Cost (J)')
+plt.title('Convergence of gradient descent of X')
 
 
-# Lets compute the cost for theta values 
-cost = compute_cost(X, y, theta) 
-print('The cost for given values of theta_0 and theta_1 =', cost) 
+# In[133]:
 
 
-# In[17]:
+X0 = np.ones((m,1))
+X1 = K.reshape(m,1)
+X_1 = np.hstack((X0,X1))
+theta = np.zeros(2)
+iterations = 1500;
+alpha = 0.01;
+cost = compute_cost(X_1,Y,theta)
+theta, cost_history = gradient_descent(X_1,Y,theta,alpha,iterations)
+
+DisplayData(K, 'blue')
+plt.plot(K,X_1.dot(theta),color = 'blue' ,label ='Linear Regression of K')
+plt.title('Scatter plot of K')
 
 
-def gradient_descent(X, y, theta, alpha, iterations): 
-  """ 
-  Compute cost for linear regression. 
- 
-  Input Parameters 
-  ---------------- 
-  X : 2D array where each row represent the training example and each column represent 
-      m= number of training examples 
-      n= number of features (including X_0 column of ones) 
-  y : 1D array of labels/target value for each traing example. dimension(m x 1) 
-  theta : 1D array of fitting parameters or weights. Dimension (1 x n) 
-  alpha : Learning rate. Scalar value 
-  iterations: No of iterations. Scalar value.  
- 
-  Output Parameters 
-  ----------------- 
-  theta : Final Value. 1D array of fitting parameters or weights. Dimension (1 x n) 
-  cost_history: Conatins value of cost for each iteration. 1D array. Dimansion(m x 1) 
-  """ 
-  cost_history = np.zeros(iterations) 
- 
-  for i in range(iterations): 
-    predictions = X.dot(theta) 
-    errors = np.subtract(predictions, y) 
-    sum_delta = (alpha / m) * X.transpose().dot(errors); 
-    theta = theta - sum_delta; 
-    cost_history[i] = compute_cost(X, y, theta)   
- 
-  return theta, cost_history 
+# In[134]:
 
 
-# In[18]:
+plt.plot(range(1,iterations+1),cost_history,color = 'blue')
+plt.rcParams["figure.figsize"] = (10,6)
+plt.grid()
+plt.xlabel('Number of iterations')
+plt.ylabel('Cost (J)')
+plt.title('Convergence of gradient descent of K')
 
 
-theta = [0., 0.] 
-iterations = 1500; 
-alpha = 0.01; 
+# In[135]:
 
 
-# In[19]:
+X0 = np.ones((m,1))
+X2 = Z.reshape(m,1)
+X_2 = np.hstack((X0,X2))
+theta = np.zeros(2)
+iterations = 1500;
+alpha = 0.01;
+
+cost = compute_cost(X_2,Y,theta)
+theta, cost_history = gradient_descent(X_2,Y,theta,alpha,iterations)
+
+DisplayData(Z, 'GREEN')
+plt.plot(Z,X_2.dot(theta),color = 'green' ,label ='Linear Regression of Z')
+plt.title('Scatter plot of Z')
 
 
-theta, cost_history = gradient_descent(X, y, theta, alpha, iterations) 
-print('Final value of theta =', theta) 
-print('cost_history =', cost_history) 
+# In[136]:
 
 
-# In[20]:
+plt.plot(range(1,iterations+1),cost_history,color = 'green')
+plt.rcParams["figure.figsize"] = (10,6)
+plt.grid()
+plt.xlabel('Number of iterations')
+plt.ylabel('Cost (J)')
+plt.title('Convergence of gradient descent of Z')
 
 
-# Since X is list of list (feature matrix) lets take values of column of index 1 only 
-plt.scatter(X[:,1], y, color='red', marker= '+', label= 'Training Data') 
-plt.plot(X[:,1],X.dot(theta), color='green', label='Linear Regression') 
- 
-plt.rcParams["figure.figsize"] = (10,6) 
-plt.grid() 
-plt.xlabel('Population of City in 10,000s') 
-plt.ylabel('Profit in $10,000s') 
-plt.title('Linear Regression Fit') 
-plt.legend() 
+# In[137]:
 
 
-# In[21]:
+'''
+Problem 1
+Problem 1 Q3
+#Which explanatory variable has the lower loss (cost) for explaining the output (Y)?
+Variable K or X_1 had the steepest slope, which means it has the lowest cost
+
+Problem 1 Q4
+#Based on your training observations, describe the impact of the different learning rates on the final loss and number of training iteration.
+A higher learning late has a steeper curve which allows for less iterations 
+'''
 
 
-plt.plot(range(1, iterations + 1),cost_history, color='blue') 
-plt.rcParams["figure.figsize"] = (10,6) 
-plt.grid() 
-plt.xlabel('Number of iterations') 
-plt.ylabel('Cost (J)') 
-plt.title('Convergence of gradient descent') 
+# In[138]:
+
+
+'''
+Problem 2
+Problem 2 Q3
+#Based on your training observations, describe the impact of the different learning rates on the final loss and number of training iteration.
+If the learning late is to low than the line will stabalize earlier. A learning late needs to be higher if possible.
+'''
+
+
+# In[139]:
+
+
+def test():
+    X0 = np.ones((m,1))
+    X1 = X.reshape(m, 1)
+    X2 = K.reshape(m,1)
+    X3 = Z.reshape(m,1)
+    X_4 = np.hstack((X0, X1, X2, X3))
+    theta = np.zeros(4)
+    iterations = 1500;
+    alpha = 0.1;
+
+    cost = compute_cost(X_4,Y,theta)
+    theta, cost_history = gradient_descent(X_4,Y,theta,alpha,iterations)
+    return theta, cost_history
+
+
+# In[140]:
+
+
+theta, cost_history = test()
+theta
+
+
+# In[141]:
+
+
+plt.plot(range(1,iterations+1),cost_history,color = 'gold')
+plt.rcParams["figure.figsize"] = (10,6)
+plt.grid()
+plt.xlabel('Number of iterations')
+plt.ylabel('Cost (J)')
+plt.title('Convergence of gradient descent for problem 2')
+
+
+# In[142]:
+
+
+X1 = theta[0] + (1)*theta[1] + (1)*theta[2] + (1)*theta[3]
+X2 = theta[0] + (2)*theta[1] + (0)*theta[2] + (4)*theta[3]
+X3 = theta[0] + (3)*theta[1] + (2)*theta[2] + (1)*theta[3]
+print('X1 = ', X1) # Show only first 5 records
+print('X2 = ', X2)
+print('X3 = ', X3)
 
 
 # In[ ]:
-
-
-
-
