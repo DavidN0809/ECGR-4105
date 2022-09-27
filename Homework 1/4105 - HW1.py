@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[35]:
 
 
 #######################################################################################
@@ -11,7 +11,7 @@
 #######################################################################################
 
 
-# In[2]:
+# In[36]:
 
 
 #######################################################################################
@@ -19,7 +19,7 @@
 #######################################################################################
 
 
-# In[3]:
+# In[37]:
 
 
 import numpy as np
@@ -31,21 +31,21 @@ warnings.filterwarnings('ignore')
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 
-# In[4]:
+# In[38]:
 
 
 housing = pd.DataFrame(pd.read_csv("Housing.csv"))
 housing.head()
 
 
-# In[5]:
+# In[39]:
 
 
 m=len(housing)
 m
 
 
-# In[6]:
+# In[40]:
 
 
 varlist = ['mainroad', 'guestroom', 'basement', 'hotwaterheating', 'airconditioning', 'prefarea', 'furnishingstatus']
@@ -55,7 +55,7 @@ def binary_map(x):
 housing[varlist] = housing[varlist].apply(binary_map)
 
 
-# In[7]:
+# In[41]:
 
 
 from sklearn.model_selection import train_test_split
@@ -64,7 +64,7 @@ np.random.seed(0)
 df_train,df_test = train_test_split(housing, train_size=0.8, test_size=0.2)
 
 
-# In[8]:
+# In[42]:
 
 
 num_vars = ['area', 'bedrooms', 'bathrooms', 'stories', 'parking', 'price']
@@ -72,7 +72,7 @@ df_Newtrain = df_train[num_vars]
 df_Newtest = df_test[num_vars]
 
 
-# In[9]:
+# In[43]:
 
 
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
@@ -80,26 +80,26 @@ scaler = MinMaxScaler()
 df_Newtrain[num_vars] = scaler.fit_transform(df_Newtrain[num_vars])
 
 
-# In[10]:
+# In[44]:
 
 
 y_Normtrain = df_Newtrain.pop('price')
 X_Normtrain = df_Newtrain.copy() 
 
 
-# In[11]:
+# In[45]:
 
 
 Y= y_Normtrain.values
 
 
-# In[12]:
+# In[46]:
 
 
 X0 = df_Newtrain.values[:,0]
 
 
-# In[13]:
+# In[47]:
 
 
 #######################################################################################
@@ -107,7 +107,7 @@ X0 = df_Newtrain.values[:,0]
 #######################################################################################
 
 
-# In[14]:
+# In[48]:
 
 
 def compute_cost(X, Y, theta, penalty = 0):
@@ -122,7 +122,7 @@ def compute_cost(X, Y, theta, penalty = 0):
     return J
 
 
-# In[15]:
+# In[49]:
 
 
 def DisplayData(X, color):
@@ -142,7 +142,7 @@ def gradient(cost_history, color):
     plt.title('Convergence of gradient descent')
 
 
-# In[16]:
+# In[50]:
 
 
 #Redefined for problem 3
@@ -166,7 +166,7 @@ def gradient_descent(X, Y, X2, Y2, theta, alpha, iterations, penalty = 0):
     return theta, cost_history, cost_history2
 
 
-# In[17]:
+# In[51]:
 
 
 #Redefined for problem 3
@@ -186,20 +186,20 @@ def multiGraph(size, X, Y, X2, Y2, alpha = 0.01, penalty = 0):
     return theta, cost_history, cost_history2
 
 
-# In[18]:
+# In[52]:
 
 
 raw_data = pd.DataFrame(pd.read_csv("Housing.csv"))
 
 
-# In[19]:
+# In[53]:
 
 
 m = len(raw_data)
 raw_data[varlist] = raw_data[varlist].apply(binary_map)
 
 
-# In[20]:
+# In[54]:
 
 
 #Used to split the training and test
@@ -209,7 +209,7 @@ np.random.seed(0)
 train_data, test_data = train_test_split(raw_data, train_size=0.8, test_size = 0.2, random_state = 42)
 
 
-# In[21]:
+# In[55]:
 
 
 def preprocessing(inputvars, data, Select = 'False'):
@@ -241,7 +241,7 @@ def Everything(inputvars, Norm, alpha = 0.01, penalty = 0):
     return theta_Train
 
 
-# In[22]:
+# In[56]:
 
 
 input1 = ['price', 'area', 'bedrooms', 'bathrooms', 'stories', 'parking']
@@ -249,35 +249,37 @@ input2 = ['price', 'area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'gues
 iterations = 1500
 
 
-# In[23]:
+# In[57]:
 
 
 #raw_data.head()
 
 
-# In[24]:
+# In[58]:
 
 
 #1a
 theta = Everything(input1, 'False', 0.0000000002)
+plt.title('Problem 1a')
 print('below is the best paramaters for 1a')
 print('\n'.join('{}: {}'.format(*val) for val in enumerate(theta)))
 #training is red and testing is blue
 #The graph is broken unless a very low value is used.
 
 
-# In[25]:
+# In[59]:
 
 
 #1b
 theta = Everything(input2, 'False', 0.0000000002)
+plt.title('Problem 1b')
 print('below is the best paramaters for 1b')
 print('\n'.join('{}: {}'.format(*val) for val in enumerate(theta)))
 #training is red and testing is blue
 #The graph is broken unless a very low value is used.
 
 
-# In[26]:
+# In[60]:
 
 
 #######################################################################################
@@ -285,11 +287,12 @@ print('\n'.join('{}: {}'.format(*val) for val in enumerate(theta)))
 #######################################################################################
 
 
-# In[27]:
+# In[61]:
 
 
 #2a
 theta_Train = Everything(input1, 'normalization', 0.01)
+plt.title('Problem 2a')
 print('below is the best paramaters for 2a')
 print('\n'.join('{}: {}'.format(*val) for val in enumerate(theta)))
 print('\nWhich input scaling achieves the best training? Explain your results.')
@@ -298,11 +301,12 @@ print('\nCompare your training accuracy between both scaling approaches as well 
 print('Normalization is better due to the higher alpha value, and normalization vs standardization, normalization is better due to its slope')
 
 
-# In[28]:
+# In[62]:
 
 
 #2b
 theta_Train = Everything(input2, 'standardization')
+plt.title('Problem 2b')
 print('below is the best paramaters for 2b')
 print('\n'.join('{}: {}'.format(*val) for val in enumerate(theta)))
 print('\nWhich input scaling achieves the best training? Explain your results.')
@@ -311,7 +315,7 @@ print('\nCompare your training accuracy between both scaling approaches as well 
 print('Normalization is better due to the higher alpha value, and normalization vs standardization, normalization is better due to its slope')
 
 
-# In[29]:
+# In[63]:
 
 
 #######################################################################################
@@ -319,22 +323,24 @@ print('Normalization is better due to the higher alpha value, and normalization 
 #######################################################################################
 
 
-# In[31]:
+# In[64]:
 
 
 #3a
 theta = Everything(input1, 'normalization', 0.01, 3)
+plt.title('Problem 3a')
 print('\n'.join('{}: {}'.format(*val) for val in enumerate(theta)))
 theta
 print('\nExplain your results and compare them against problem 2 a')
 print('The graphs are near identical for the test case. The training case without a penalty is better due to its lower cost.')
 
 
-# In[32]:
+# In[65]:
 
 
 #3b
 theta = Everything(input2, 'standardization', 0.01, 3)
+plt.title('Problem 3b')
 print('\n'.join('{}: {}'.format(*val) for val in enumerate(theta)))
 print('\nExplain your results and compare them against problem 2 b.')
 print('The graphs are near identical for the test case. The training case with a penalty is better due to its lower cost.')
