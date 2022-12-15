@@ -1,67 +1,33 @@
-YEAR,SOURCE,GENERATION
-1990,Hydroelectric Conventional,87466708.0
-1991,Hydroelectric Conventional,89342397.0
-1992,Hydroelectric Conventional,68324659.0
-1993,Hydroelectric Conventional,67312383.0
-1994,Hydroelectric Conventional,65575487.0
-1995,Hydroelectric Conventional,82500153.0
-1996,Hydroelectric Conventional,98517855.0
-1997,Hydroelectric Conventional,104170551.0
-1998,Hydroelectric Conventional,79814652.0
-1999,Hydroelectric Conventional,96989382.0
-2000,Hydroelectric Conventional,80262889.0
-2001,Hydroelectric Conventional,54733895.0
-2002,Hydroelectric Conventional,78166664.0
-2002,Wind,416581.0
-2003,Hydroelectric Conventional,71756783.0
-2003,Wind,603674.0
-2004,Hydroelectric Conventional,71575700.0
-2004,Wind,736576.0
-2005,Hydroelectric Conventional,72074649.0
-2005,Wind,498470.0
-2006,Hydroelectric Conventional,82007629.0
-2006,Wind,1037651.0
-2007,Hydroelectric Conventional,78829195.0
-2007,Wind,2437823.0
-2008,Hydroelectric Conventional,77636758.0
-2008,Solar Thermal and Photovoltaic,0.0
-2008,Wind,3657484.0
-2009,Hydroelectric Conventional,72932704.0
-2009,Solar Thermal and Photovoltaic,0.0
-2009,Wind,3572486.0
-2010,Hydroelectric Conventional,68288383.0
-2010,Solar Thermal and Photovoltaic,0.0
-2010,Wind,4744679.0
-2011,Hydroelectric Conventional,91817701.71
-2011,Solar Thermal and Photovoltaic,840.0
-2011,Wind,6262380.0
-2012,Hydroelectric Conventional,89464355.0
-2012,Solar Thermal and Photovoltaic,794.0
-2012,Wind,6599766.0
-2013,Hydroelectric Conventional,78155087.0
-2013,Solar Thermal and Photovoltaic,762.0
-2013,Wind,7004365.0
-2014,Hydroelectric Conventional,79463144.0
-2014,Solar Thermal and Photovoltaic,729.0
-2014,Wind,7267794.0
-2015,Hydroelectric Conventional,73404916.0
-2015,Solar Thermal and Photovoltaic,790.0
-2015,Wind,7075385.0
-2016,Hydroelectric Conventional,78345809.0
-2016,Solar Thermal and Photovoltaic,727.0
-2016,Wind,8041847.0
-2017,Hydroelectric Conventional,82182855.0
-2017,Solar Thermal and Photovoltaic,481.0
-2017,Wind,6925155.0
-2018,Hydroelectric Conventional,80883377.0
-2018,Solar Thermal and Photovoltaic,1695.0
-2018,Wind,7900094.0
-2019,Hydroelectric Conventional,66018323.0
-2019,Solar Thermal and Photovoltaic,43728.0
-2019,Wind,6677261.0
-2020,Hydroelectric Conventional,76409659.0
-2020,Solar Thermal and Photovoltaic,45872.0
-2020,Wind,9265597.0
-2021,Hydroelectric Conventional,71379357.0
-2021,Solar Thermal and Photovoltaic,50208.0
-2021,Wind,9297756.0
+Hydroelectric Conventional,Solar Thermal and Photovoltaic,Wind,Total
+87466708.0,0.0,0.0,87466708.0
+89342397.0,0.0,0.0,89342397.0
+68324659.0,0.0,0.0,68324659.0
+67312383.0,0.0,0.0,67312383.0
+65575487.0,0.0,0.0,65575487.0
+82500153.0,0.0,0.0,82500153.0
+98517855.0,0.0,0.0,98517855.0
+104170551.0,0.0,0.0,104170551.0
+79814652.0,0.0,0.0,79814652.0
+96989382.0,0.0,0.0,96989382.0
+80262889.0,0.0,0.0,80262889.0
+54733895.0,0.0,0.0,54733895.0
+78166664.0,0.0,416581.0,78583245.0
+71756783.0,0.0,603674.0,72360457.0
+71575700.0,0.0,736576.0,72312276.0
+72074649.0,0.0,498470.0,72573119.0
+82007629.0,0.0,1037651.0,83045280.0
+78829195.0,0.0,2437823.0,81267018.0
+77636758.0,0.0,3657484.0,81294242.0
+72932704.0,0.0,3572486.0,76505190.0
+68288383.0,0.0,4744679.0,73033062.0
+91817701.71,840.0,6262380.0,98080921.71
+89464355.0,794.0,6599766.0,96064915.0
+78155087.0,762.0,7004365.0,85160214.0
+79463144.0,729.0,7267794.0,86731667.0
+73404916.0,790.0,7075385.0,80481091.0
+78345809.0,727.0,8041847.0,86388383.0
+82182855.0,481.0,6925155.0,89108491.0
+80883377.0,1695.0,7900094.0,88785166.0
+66018323.0,43728.0,6677261.0,72739312.0
+76409659.0,45872.0,9265597.0,85721128.0
+71379357.0,50208.0,9297756.0,80727321.0
